@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bol6v42myiu65"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_py7op"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_dhgyf"]
+
+[node name="Meshes" type="Node3D"]
+
+[node name="SphereMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, -1)
+mesh = SubResource("SphereMesh_py7op")
+
+[node name="CudeMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_dhgyf")
