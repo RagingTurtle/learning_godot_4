@@ -14,3 +14,7 @@ config/name="ProjectBoost"
 run/main_scene="res://scenes/level.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
+
+[physics]
+
+3d/physics_engine="JoltPhysics3D"
