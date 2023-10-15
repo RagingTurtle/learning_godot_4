@@ -1,14 +1,17 @@
-extends Node3D
+extends RigidBody3D
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+@export var force_magnitude :float = 1000
+@export var torgue_magnitude : float = 100
+
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().quit()
 		
 	if Input.is_action_pressed("ui_accept"):
-		position.y += delta
+		apply_central_force(basis.y * delta * force_magnitude)
 		
 	if Input.is_action_pressed("ui_left"):
-		rotate_z(delta)
+		apply_torque(Vector3(0, 0, torgue_magnitude) * delta)
+		
 	if Input.is_action_pressed("ui_right"):
-		rotate_z(-delta)
+		apply_torque(Vector3(0, 0, -torgue_magnitude) * delta)
