@@ -21,7 +21,15 @@ func _physics_process(delta: float) -> void:
 
 func _on_body_entered(body: Node) -> void:
 	if "Goal" in body.get_groups():
-		print("WIN")
+		complete_level()
 		
 	if "Ground" in body.get_groups():
-		print("LOSE")
+		crash_sequence()
+
+func crash_sequence() -> void:
+	print("BOOM!")
+	get_tree().reload_current_scene()
+	
+func complete_level() -> void:
+	print("WIN!")
+	get_tree().quit()
