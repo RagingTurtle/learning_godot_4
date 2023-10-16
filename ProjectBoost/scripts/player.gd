@@ -6,6 +6,11 @@ extends RigidBody3D
 ## Torque applied for rotation or turning left/right.
 @export_range(75.0, 300) var rotation_torque: float = 100
 
+## Delay for tweening in seconds
+@export_range(0, 5) var tween_delay: float = 1
+
+var is_tweening: bool = false
+
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()
@@ -20,16 +25,27 @@ func _physics_process(delta: float) -> void:
 		apply_torque(Vector3(0, 0, -rotation_torque) * delta)
 
 func _on_body_entered(body: Node) -> void:
-	if "Goal" in body.get_groups():
-		complete_level(body.file_path)
-		
-	if "Ground" in body.get_groups():
-		crash_sequence()
+	if !is_tweening:
+		if "Goal" in body.get_groups():
+			complete_level(body.file_path)
+			
+		if "Ground" in body.get_groups():
+			crash_sequence()
 
 func crash_sequence() -> void:
 	print("BOOM!")
-	get_tree().reload_current_scene()
+	
+	set_physics_process(false)
+	is_tweening = true
+	var tween = create_tween()
+	tween.tween_interval(tween_delay)
+	tween.tween_callback(get_tree().reload_current_scene)
 	
 func complete_level(next_scene_filepath: String) -> void:
 	print("WIN!")
-	get_tree().change_scene_to_file(next_scene_filepath)
+	
+	set_physics_process(false)
+	is_tweening = true
+	var tween = create_tween()
+	tween.tween_interval(tween_delay)
+	tween.tween_callback(get_tree().change_scene_to_file.bind(next_scene_filepath))
