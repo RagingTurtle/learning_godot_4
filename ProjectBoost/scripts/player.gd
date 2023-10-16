@@ -15,3 +15,10 @@ func _physics_process(delta: float) -> void:
 		
 	if Input.is_action_pressed("turn_right"):
 		apply_torque(Vector3(0, 0, -torgue_magnitude) * delta)
+
+func _on_body_entered(body: Node) -> void:
+	if "Goal" in body.get_groups():
+		print("WIN")
+		
+	if "Ground" in body.get_groups():
+		print("LOSE")
