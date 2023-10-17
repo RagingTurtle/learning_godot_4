@@ -6,8 +6,8 @@ extends RigidBody3D
 ## Torque applied for rotation or turning left/right.
 @export_range(75.0, 300) var rotation_torque: float = 100
 
-## Delay for tweening in seconds
-@export_range(0, 5) var tween_delay: float = 1
+@onready var death_audio: AudioStreamPlayer = $DeathAudio
+@onready var success_audio: AudioStreamPlayer = $SuccessAudio
 
 var is_tweening: bool = false
 
@@ -33,19 +33,21 @@ func _on_body_entered(body: Node) -> void:
 			crash_sequence()
 
 func crash_sequence() -> void:
-	print("BOOM!")
+	death_audio.play()#print("BOOM!")
 	
 	set_physics_process(false)
 	is_tweening = true
 	var tween = create_tween()
+	var tween_delay = death_audio.stream.get_length() - death_audio.get_playback_position()
 	tween.tween_interval(tween_delay)
 	tween.tween_callback(get_tree().reload_current_scene)
 	
 func complete_level(next_scene_filepath: String) -> void:
-	print("WIN!")
+	success_audio.play()#("WIN!")
 	
 	set_physics_process(false)
 	is_tweening = true
 	var tween = create_tween()
+	var tween_delay = success_audio.stream.get_length() - death_audio.get_playback_position()
 	tween.tween_interval(tween_delay)
 	tween.tween_callback(get_tree().change_scene_to_file.bind(next_scene_filepath))
