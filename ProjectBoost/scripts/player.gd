@@ -26,10 +26,10 @@ func _physics_process(delta: float) -> void:
 
 func _on_body_entered(body: Node) -> void:
 	if !is_tweening:
-		if "Goal" in body.get_groups():
+		if "goal" in body.get_groups():
 			complete_level(body.file_path)
 			
-		if "Ground" in body.get_groups():
+		if "hazard" in body.get_parent().get_groups():
 			crash_sequence()
 
 func crash_sequence() -> void:

@@ -39,7 +39,9 @@ shadow_enabled = true
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 8.5, 10.5)
 
-[node name="Ground" type="CSGBox3D" parent="." groups=["Ground"]]
+[node name="Hazards" type="Node" parent="." groups=["hazard"]]
+
+[node name="Ground" type="CSGBox3D" parent="Hazards" groups=["Ground"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0)
 use_collision = true
 size = Vector3(40, 8, 5)
@@ -51,7 +53,7 @@ use_collision = true
 size = Vector3(2, 0.25, 2)
 material = SubResource("StandardMaterial3D_3htcr")
 
-[node name="LandingPad" type="CSGBox3D" parent="." groups=["Goal"]]
+[node name="LandingPad" type="CSGBox3D" parent="." groups=["goal"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0.125, 0)
 use_collision = true
 size = Vector3(2, 0.25, 2)
