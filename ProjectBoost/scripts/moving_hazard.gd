@@ -11,5 +11,3 @@ func _ready() -> void:
 	tween.tween_property(self, "global_position", global_position + destination, duration)
 	tween.tween_property(self, "global_position", global_position, duration)
 	
-func _process(delta: float) -> void:
-	pass
