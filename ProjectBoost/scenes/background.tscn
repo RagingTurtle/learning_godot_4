@@ -1,7 +1,24 @@
-[gd_scene load_steps=2 format=3 uid="uid://b3fpfnygky4xt"]
+[gd_scene load_steps=5 format=3 uid="uid://b3fpfnygky4xt"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lephb"]
 albedo_color = Color(0.603922, 0.407843, 0.262745, 1)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_kls5d"]
+sky_top_color = Color(0.121569, 0.14902, 0.454902, 1)
+sky_horizon_color = Color(0.64172, 0.591942, 0.659624, 1)
+ground_bottom_color = Color(0.445313, 0.21875, 0.183594, 1)
+ground_horizon_color = Color(0.64172, 0.591942, 0.659624, 1)
+
+[sub_resource type="Sky" id="Sky_xfq0l"]
+sky_material = SubResource("ProceduralSkyMaterial_kls5d")
+
+[sub_resource type="Environment" id="Environment_awfuk"]
+background_mode = 1
+background_color = Color(0.15, 0.05595, 0.051, 1)
+sky = SubResource("Sky_xfq0l")
+ambient_light_source = 3
+tonemap_mode = 2
+glow_enabled = true
 
 [node name="Background" type="Node" groups=["hazard"]]
 
@@ -88,3 +105,29 @@ transform = Transform3D(-0.373929, 0.14606, -0.0232857, -0.147881, -0.368085, 0.
 use_collision = true
 size = Vector3(40, 8, 5)
 material = SubResource("StandardMaterial3D_lephb")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_awfuk")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.078459, -0.578913, 0.811606, 0, 0.814115, 0.580703, -0.996917, -0.0455614, 0.0638748, 0, 0, 0)
+light_energy = 0.5
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 12.6, 13.63)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.33267, 0.103882)
+omni_range = 12.0
+omni_attenuation = 0.5
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.5552, 6.64595, 0.103882)
+omni_range = 12.0
+omni_attenuation = 0.5
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.7642, 6.6161, 0.103882)
+omni_range = 12.0
+omni_attenuation = 0.5
