@@ -8,6 +8,7 @@ extends RigidBody3D
 
 @onready var death_audio: AudioStreamPlayer = $DeathAudio
 @onready var success_audio: AudioStreamPlayer = $SuccessAudio
+@onready var rocket_audio_3d: AudioStreamPlayer3D = $RocketAudio3D
 
 var is_tweening: bool = false
 
@@ -17,6 +18,13 @@ func _physics_process(delta: float) -> void:
 		
 	if Input.is_action_pressed("boost"):
 		apply_central_force(basis.y * delta * thrust_force)
+		if rocket_audio_3d.stream_paused:
+			rocket_audio_3d.stream_paused = false
+		if !rocket_audio_3d.playing:  
+			rocket_audio_3d.play()
+	else:
+		if rocket_audio_3d.playing: 
+			rocket_audio_3d.stream_paused = true
 		
 	if Input.is_action_pressed("turn_left"):
 		apply_torque(Vector3(0, 0, rotation_torque) * delta)
@@ -34,7 +42,8 @@ func _on_body_entered(body: Node) -> void:
 
 func crash_sequence() -> void:
 	death_audio.play()#print("BOOM!")
-	
+	if rocket_audio_3d.playing: 
+		rocket_audio_3d.stop()
 	set_physics_process(false)
 	is_tweening = true
 	var tween = create_tween()
@@ -44,7 +53,8 @@ func crash_sequence() -> void:
 	
 func complete_level(next_scene_filepath: String) -> void:
 	success_audio.play()#("WIN!")
-	
+	if rocket_audio_3d.playing: 
+		rocket_audio_3d.stop()	
 	set_physics_process(false)
 	is_tweening = true
 	var tween = create_tween()
