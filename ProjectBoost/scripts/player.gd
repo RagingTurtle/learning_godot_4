@@ -9,6 +9,9 @@ extends RigidBody3D
 @onready var death_audio: AudioStreamPlayer = $DeathAudio
 @onready var success_audio: AudioStreamPlayer = $SuccessAudio
 @onready var rocket_audio_3d: AudioStreamPlayer3D = $RocketAudio3D
+@onready var booster_particles: GPUParticles3D = $BoosterParticles
+@onready var left_booster_particles: GPUParticles3D = $LeftBoosterParticles
+@onready var right_booster_particles: GPUParticles3D = $RightBoosterParticles
 
 var is_tweening: bool = false
 
@@ -18,19 +21,27 @@ func _physics_process(delta: float) -> void:
 		
 	if Input.is_action_pressed("boost"):
 		apply_central_force(basis.y * delta * thrust_force)
+		booster_particles.emitting = true
 		if rocket_audio_3d.stream_paused:
 			rocket_audio_3d.stream_paused = false
 		if !rocket_audio_3d.playing:  
 			rocket_audio_3d.play()
 	else:
+		booster_particles.emitting = false
 		if rocket_audio_3d.playing: 
 			rocket_audio_3d.stream_paused = true
 		
 	if Input.is_action_pressed("turn_left"):
 		apply_torque(Vector3(0, 0, rotation_torque) * delta)
+		right_booster_particles.emitting = true
+	else:
+		right_booster_particles.emitting = false
 		
 	if Input.is_action_pressed("turn_right"):
 		apply_torque(Vector3(0, 0, -rotation_torque) * delta)
+		left_booster_particles.emitting = true
+	else:
+		left_booster_particles.emitting = false
 
 func _on_body_entered(body: Node) -> void:
 	if !is_tweening:
@@ -42,6 +53,7 @@ func _on_body_entered(body: Node) -> void:
 
 func crash_sequence() -> void:
 	death_audio.play()#print("BOOM!")
+	booster_particles.emitting = false
 	if rocket_audio_3d.playing: 
 		rocket_audio_3d.stop()
 	set_physics_process(false)
@@ -53,6 +65,7 @@ func crash_sequence() -> void:
 	
 func complete_level(next_scene_filepath: String) -> void:
 	success_audio.play()#("WIN!")
+	booster_particles.emitting = false
 	if rocket_audio_3d.playing: 
 		rocket_audio_3d.stop()	
 	set_physics_process(false)
