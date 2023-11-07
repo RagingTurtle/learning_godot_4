@@ -6,3 +6,7 @@ var direction := Vector3.FORWARD
 
 func _physics_process(delta: float) -> void:
 	position += delta * direction * speed
+
+
+func _on_timer_timeout() -> void:
+	self.queue_free()
