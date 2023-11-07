@@ -120,6 +120,7 @@ progress = 20.0
 [node name="Base" parent="." instance=ExtResource("3_gp2rq")]
 max_health = 6
 
-[node name="TurretManager" type="Node3D" parent="."]
+[node name="TurretManager" type="Node3D" parent="." node_paths=PackedStringArray("enemy_path")]
 script = ExtResource("5_cg1fu")
 turret = ExtResource("6_6oty1")
+enemy_path = NodePath("../Path3D")
