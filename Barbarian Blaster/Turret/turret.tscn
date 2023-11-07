@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://7mddabdd78bo"]
+[gd_scene load_steps=9 format=3 uid="uid://7mddabdd78bo"]
 
 [ext_resource type="Script" path="res://Turret/turret.gd" id="1_d8axt"]
 [ext_resource type="PackedScene" uid="uid://dho22kkq4ruwh" path="res://Turret/projectile.tscn" id="1_rtjkj"]
@@ -15,6 +15,43 @@ height = 0.6
 top_radius = 0.1
 bottom_radius = 0.3
 height = 1.0
+
+[sub_resource type="Animation" id="Animation_qbmbj"]
+resource_name = "fire"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TurretBase/TurretTop:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0.3, -0.6), Vector3(0, 0.3, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_xs4xk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TurretBase/TurretTop:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.3, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0c4pu"]
+_data = {
+"RESET": SubResource("Animation_xs4xk"),
+"fire": SubResource("Animation_qbmbj")
+}
 
 [node name="Turret" type="Node3D"]
 script = ExtResource("1_d8axt")
@@ -34,5 +71,10 @@ mesh = SubResource("CylinderMesh_v4bg7")
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_0c4pu")
+}
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
