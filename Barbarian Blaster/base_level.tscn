@@ -42,7 +42,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 size = Vector3(100, 2, 100)
 material = SubResource("StandardMaterial3D_kvby7")
 
-[node name="RayPickerCamera" parent="." instance=ExtResource("1_y44k5")]
+[node name="RayPickerCamera" parent="." node_paths=PackedStringArray("gridmap") instance=ExtResource("1_y44k5")]
+gridmap = NodePath("../GridMap")
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource("1_272pr")
@@ -98,7 +99,7 @@ path_joined = false
 transform = Transform3D(-4.37111e-08, 0, -0.999994, 0, 1, 0, 0.999994, 0, -4.37111e-08, -22, 0, 6)
 
 [node name="Enemy2" parent="Path3D" instance=ExtResource("2_cxhum")]
-transform = Transform3D(-0.0240078, 0, -0.999706, 0, 1, 0, 0.999706, 0, -0.0240078, -17.0018, 0, 6.12903)
+transform = Transform3D(-0.0240078, 0, -0.999705, 0, 1, 0, 0.999705, 0, -0.0240078, -17.0018, 0, 6.12903)
 progress = 5.0
 
 [node name="Enemy3" parent="Path3D" instance=ExtResource("2_cxhum")]
