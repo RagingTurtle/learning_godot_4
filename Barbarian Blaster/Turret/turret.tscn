@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://7mddabdd78bo"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_7opo4"]
+height = 1.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_uk3io"]
+top_radius = 0.6
+bottom_radius = 0.6
+height = 0.6
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_v4bg7"]
+top_radius = 0.1
+bottom_radius = 0.3
+height = 1.0
+
+[node name="Turret" type="Node3D"]
+
+[node name="TurretBase" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("CylinderMesh_7opo4")
+
+[node name="TurretTop" type="MeshInstance3D" parent="TurretBase"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+mesh = SubResource("CylinderMesh_uk3io")
+
+[node name="Barrel" type="MeshInstance3D" parent="TurretBase/TurretTop"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.5)
+mesh = SubResource("CylinderMesh_v4bg7")
