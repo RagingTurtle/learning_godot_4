@@ -9,7 +9,8 @@ var current_health: int:
 		return current_health 
 	set(value):
 		current_health = value
-		label_3d.text = str(current_health)
+		label_3d.text = str(current_health) + "/" + str(max_health)
+		label_3d.modulate = Color.RED.lerp(Color.WHITE, float(current_health)/float(max_health))
 		if current_health < 1:
 			get_tree().reload_current_scene()
 
