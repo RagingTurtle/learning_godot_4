@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bt4xioqpr4s38"]
+[gd_scene load_steps=20 format=3 uid="uid://bt4xioqpr4s38"]
 
 [ext_resource type="MeshLibrary" uid="uid://be7v4nydl654k" path="res://MeshLibraries/space_library.tres" id="1_272pr"]
 [ext_resource type="PackedScene" uid="uid://c6m7horu2wely" path="res://ray_picker_camera/ray_picker_camera.tscn" id="1_y44k5"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://TurretManager.gd" id="5_cg1fu"]
 [ext_resource type="PackedScene" uid="uid://7mddabdd78bo" path="res://Turret/turret.tscn" id="6_6oty1"]
 [ext_resource type="Script" path="res://Bank.gd" id="8_74nm1"]
+[ext_resource type="FontFile" uid="uid://cbck8jxmxmiga" path="res://Assets/Asap/static/Asap-Bold.ttf" id="8_isdbl"]
 [ext_resource type="PackedScene" uid="uid://baro3hg8hktpk" path="res://DifficultyManager/difficulty_manager.tscn" id="9_25qs5"]
 [ext_resource type="PackedScene" uid="uid://deg115hw7fg77" path="res://UI/victory_layer.tscn" id="10_7gpc1"]
 
@@ -36,6 +37,9 @@ point_count = 5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5ay4w"]
 albedo_color = Color(0.317647, 0.317647, 0.317647, 1)
+
+[sub_resource type="Theme" id="Theme_q0g4k"]
+default_font = ExtResource("8_isdbl")
 
 [sub_resource type="LabelSettings" id="LabelSettings_diyec"]
 font_size = 64
@@ -134,12 +138,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme = SubResource("Theme_q0g4k")
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 script = ExtResource("8_74nm1")
-starting_gold = 2000
+starting_gold = 200
 
 [node name="Label" type="Label" parent="Bank"]
 layout_mode = 2
@@ -147,8 +152,10 @@ size_flags_horizontal = 0
 size_flags_vertical = 8
 text = "placeholder"
 label_settings = SubResource("LabelSettings_diyec")
+uppercase = true
 
 [node name="DifficultyManager" parent="." instance=ExtResource("9_25qs5")]
+game_length = 180.0
 
 [node name="VictoryLayer" parent="." instance=ExtResource("10_7gpc1")]
 visible = false

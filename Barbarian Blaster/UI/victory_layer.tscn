@@ -1,7 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://deg115hw7fg77"]
+[gd_scene load_steps=6 format=3 uid="uid://deg115hw7fg77"]
 
 [ext_resource type="Script" path="res://UI/victory_layer.gd" id="1_1gq6e"]
+[ext_resource type="FontFile" uid="uid://cbck8jxmxmiga" path="res://Assets/Asap/static/Asap-Bold.ttf" id="2_d5qw8"]
 [ext_resource type="Texture2D" uid="uid://b0f82eggdan68" path="res://Assets/star.png" id="2_qi0an"]
+
+[sub_resource type="Theme" id="Theme_qav05"]
+default_font = ExtResource("2_d5qw8")
 
 [sub_resource type="LabelSettings" id="LabelSettings_g880j"]
 font_size = 96
@@ -23,6 +27,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_qav05")
 
 [node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
 custom_minimum_size = Vector2(400, 400)
@@ -72,21 +77,25 @@ stretch_mode = 5
 [node name="SurvivedLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 text = "Survived +1"
+horizontal_alignment = 1
 
 [node name="HealthLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 text = "Full Health +1"
+horizontal_alignment = 1
 
 [node name="MoneyLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 text = "money money money +1"
+horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 10
 
 [node name="RetryButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
