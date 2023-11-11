@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bt4xioqpr4s38"]
+[gd_scene load_steps=16 format=3 uid="uid://bt4xioqpr4s38"]
 
 [ext_resource type="MeshLibrary" uid="uid://be7v4nydl654k" path="res://MeshLibraries/space_library.tres" id="1_272pr"]
 [ext_resource type="PackedScene" uid="uid://c6m7horu2wely" path="res://ray_picker_camera/ray_picker_camera.tscn" id="1_y44k5"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://TurretManager.gd" id="5_cg1fu"]
 [ext_resource type="PackedScene" uid="uid://7mddabdd78bo" path="res://Turret/turret.tscn" id="6_6oty1"]
 [ext_resource type="Script" path="res://Bank.gd" id="8_74nm1"]
+[ext_resource type="PackedScene" uid="uid://baro3hg8hktpk" path="res://DifficultyManager/difficulty_manager.tscn" id="9_25qs5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hq0g4"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -63,10 +64,11 @@ data = {
 "cells": PackedInt32Array(65535, 65534, 0, 65535, 2, 0, 65531, 65534, 0, 65531, 65535, 0, 65534, 65534, 0, 65532, 65534, 0, 0, 65534, 0, 1, 65534, 0, 2, 65534, 0, 3, 65534, 0, 65531, 0, 0, 65531, 2, 0, 65532, 2, 0, 65533, 2, 0, 65534, 2, 0, 0, 2, 0, 1, 2, 0, 2, 2, 0, 3, 2, 0, 4, 65534, 0, 4, 65535, 0, 4, 0, 0, 4, 1, 0, 4, 2, 0, 65532, 0, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 65532, 65535, 0)
 }
 
-[node name="EnemyPath" type="Path3D" parent="."]
+[node name="EnemyPath" type="Path3D" parent="." node_paths=PackedStringArray("difficulty_manager")]
 curve = SubResource("Curve3D_hlpn5")
 script = ExtResource("3_bvubj")
 enemy_scene = ExtResource("2_cxhum")
+difficulty_manager = NodePath("../DifficultyManager")
 
 [node name="Road" type="CSGPolygon3D" parent="EnemyPath"]
 polygon = PackedVector2Array(-1, 0, -1, 0.1, 1, 0.1, 1, 0)
@@ -119,7 +121,7 @@ script = ExtResource("5_cg1fu")
 turret = ExtResource("6_6oty1")
 enemy_path = NodePath("../EnemyPath")
 
-[node name="Bank" type="MarginContainer" parent="."]
+[node name="Bank" type="MarginContainer" parent="." groups=["bank"]]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -138,5 +140,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 8
 text = "placeholder"
 label_settings = SubResource("LabelSettings_diyec")
+
+[node name="DifficultyManager" parent="." instance=ExtResource("9_25qs5")]
 
 [connection signal="timeout" from="EnemyPath/Timer" to="EnemyPath" method="spawn_enemy"]
