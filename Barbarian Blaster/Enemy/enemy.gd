@@ -18,9 +18,6 @@ extends PathFollow3D
 @onready var base = get_tree().get_first_node_in_group("base")
 @onready var bank = get_tree().get_first_node_in_group("bank")
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-
-func _ready() -> void:
-	Engine.time_scale = 3
 	
 func _process(delta: float) -> void:
 	self.progress += delta * speed
